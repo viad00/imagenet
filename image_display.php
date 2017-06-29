@@ -1,7 +1,13 @@
  
 <?php
     if ((isset($_GET['id']) && is_numeric($_GET['id'])) === FALSE) die;
-
+   if (!function_exists('getimagesizefromstring')) {
+      function getimagesizefromstring($string_data)
+      {
+         $uri = 'data://application/octet-stream;base64,'  . base64_encode($string_data);
+         return getimagesize($uri);
+      }
+    }
     include "images.php";
     $imageId = $_GET['id'];
     $image = Images::GetImage($imageId);
